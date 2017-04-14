@@ -1,0 +1,43 @@
+{
+    //  eslint找到这个标识后，不会再去父文件夹中找eslint的配置文件
+    root: true, 
+    //使用babel-eslint来作为eslint的解析器
+    parser: 'babel-eslint',
+    // 设置解析器选项
+    parserOptions: {
+        sourceType: 'module',
+        "ecmaVersion": 6
+    },
+    // 启用额外的规则或者覆盖基础配置中的规则的默认选项
+    rules: {
+        'indent': ['error', 4], // 缩进控制 4空格 
+        'no-mixed-spaces-and-tabs': 'error', // 禁止使用 空格 和 tab 混合缩进 
+        'no-multi-spaces': 'error', // 禁止出现多个空格而且不是用来作缩进的 
+        'array-bracket-spacing': ['error', 'never'], // 数组紧贴括号部分不允许包含空格。 
+        'block-spacing': ['error', 'never'], // 单行代码块中紧贴括号部分不允许包含空格。 
+        'comma-spacing': ['error', { 'before': false, 'after': true }], //在变量声明、数组字面量、对象字面量、函数参数 和 序列中禁止在逗号前使用空格,要求在逗号后使用一个或多个空格 
+        'semi-spacing': ['error', {'before': false, 'after': true}], //禁止分号周围的空格 
+        'computed-property-spacing': ['error', 'never'], // 禁止括号和其内部值之间的空格 
+        'no-trailing-spaces': 'error', // 禁用行尾空格 
+        'no-spaced-func': 'error', // 禁止 function 标识符和圆括号之间有空格 
+        "space-before-function-paren": ["warn", {
+            "anonymous": "ignore",
+            "named": "ignore",
+            "asyncArrow": "ignore"
+        }], // 禁止函数圆括号之前有一个空格
+        'space-before-blocks': ['error', 'always'], // 禁止语句块之前的空格 
+        'space-in-parens': ['error', 'never'], // 禁止圆括号内的空格 
+        'space-infix-ops': ['error', {'int32Hint': false}], // 要求中缀操作符周围有空格,设置 int32Hint 选项为 true (默认 false) 允许 a|0 不带空格。 
+        'space-unary-ops': 'error', // 要求或禁止在一元操作符之前或之后存在空格,new、delete、typeof、void、yield要求有空格，-、+、--、++、!、!!要求无空格。 
+        'spaced-comment': ['error', 'always'], // 要求在注释前有空白
+        'arrow-spacing': 'error', // 要求箭头函数的箭头之前和之后有空格
+        'eol-last': 'off', // 关闭文件末尾多出一行
+        "no-unused-vars": 'off' // 没有无用变量：警告
+    },
+    globals: {
+    },
+    env: {
+        browser: true,
+        node: true
+    }
+}
