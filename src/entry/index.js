@@ -1,9 +1,10 @@
 import Vue from '../vue/core/index.js'
 
-const vm = new Vue({
+window.vm = new Vue({
     data() {
         return {
-            a: 1
+            a: 2
         }
     }
 })
+console.log(vm)

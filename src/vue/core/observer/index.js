@@ -21,12 +21,6 @@ class Observer {
             // for...in 循环会把对象原型链上的所有可枚举属性都循环出来，用hasOwnProperty过滤。
             if (obj.hasOwnProperty(key)) {
                 val = obj[key]
-
-                // 这里进行判断，如果还没有遍历到最底层，继续new Observer
-                if (typeof val === 'object') {
-                    // 深度递归
-                    new Observer(val)
-                }
                 this.convert(key, val)
             }
         }
