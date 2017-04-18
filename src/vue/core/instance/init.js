@@ -1,4 +1,5 @@
 import { initState } from './state'
+import { initRender } from './render'
 
 // 全局Vue实例个数，VueID
 let uid = 0
@@ -16,14 +17,8 @@ export function initMixin (Vue) {
         vm._self = vm
 
         // 运行接口，挂载接口在index.js中
-        // initLifecycle(vm)
-        // initEvents(vm)
-        // initRender(vm)
-        // callHook(vm, 'beforeCreate')
-        // initInjections(vm)
+        initRender(vm)
         initState(vm)
-        // initProvide(vm)
-        // callHook(vm, 'created')
 
         // 如果options中声明了挂载对象el
         if (vm.$options.el) {

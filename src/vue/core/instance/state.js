@@ -13,7 +13,9 @@ export function initState (vm) {
     vm._watchers = []
     const opts = vm.$options
     initData(vm)
-    if (opts.watch) initWatch(vm, opts.watch)
+    if(opts.watch) {
+        initWatch(vm, opts.watch)
+    }
 }
 
 export function stateMixin (Vue) {
@@ -26,11 +28,7 @@ export function stateMixin (Vue) {
     Vue.prototype.$watch = function (expOrFn, cb, options) {
         const vm = this
         options = options || {}
-        options.user = true
         const watcher = new Watcher(vm, expOrFn, cb, options)
-        if (options.immediate) {
-            cb.call(vm, watcher.value)
-        }
         return function unwatchFn () {
             watcher.teardown()
         }

@@ -8,9 +8,10 @@ import { Dep } from './dep'
 import { Watcher } from './watcher'
 
 class Observer {
-    constructor(data) {
+    constructor(data, vm) {
         // 递归
         this.walk(data)
+        this._vm = vm
     }
 
     // 遍历data对象的属性
@@ -23,6 +24,11 @@ class Observer {
                 val = obj[key]
                 this.convert(key, val)
             }
+        }
+    }
+    update() {
+        if(this._vm && this._vm.$options && this._vm.$options.render) {
+            this._vm.$render()
         }
     }
 
@@ -39,25 +45,24 @@ class Observer {
                 if(Dep.target) {
                     dep.addSub(Dep.target);
                 }
-                console.log('你访问了' + key);
                 return val
             },
             set: function (newVal) {
-                console.log('新的' + key + ' = ' + newVal)
                 if (newVal === val) return;
-                val = newVal;
-                dep.notify();
+                val = newVal
+                this.update()
+                dep.notify()
             }
         })
     }
 }
 
 // 通过observe改变this指向
-function observe (value, vm) {
-    if (!value || typeof value !== 'object') {
+function observe (data, vm) {
+    if (!data || typeof data !== 'object') {
         return
     }
-    vm._data = new Observer(value)
+    vm._data = new Observer(data, vm)
 }
 
 export { observe }

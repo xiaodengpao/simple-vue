@@ -4,7 +4,7 @@
 * @ date: 2017-04-15
 * @ desc: 观察者，被回调的对象，存放于Dep数组中
 */
-
+import { Dep } from './dep'
 class Watcher {
     // watcher会触发data的get代理
     constructor(vm, expOrFn, cb) {
@@ -21,9 +21,9 @@ class Watcher {
     run() {
         const value = this.get()
         if(value !== this.value) {
-            this.value = value
             // 上下文换成vm对象，供回调函数使用
-            this.cb.call(this.vm)
+            this.cb.call(this.vm, value, this.value)
+            this.value = value
         }
     }
     // 创建watcher时候会调用，此时如果是第一次创建，那么把watcher添加到Dep数组

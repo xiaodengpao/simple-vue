@@ -1,5 +1,6 @@
 import { initMixin } from './init'
 import { stateMixin } from './state'
+import { renderMixin } from './render'
 
 /**
  * Vue构造函数.
@@ -18,7 +19,11 @@ function Vue (options) {
     this._init(options)
 }
 
+// 初始化
 initMixin(Vue)
+// 数据绑定
 stateMixin(Vue)
+// 渲染函数
+renderMixin(Vue)
 
 export default Vue
