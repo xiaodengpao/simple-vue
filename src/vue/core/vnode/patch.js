@@ -34,10 +34,7 @@ function addVnodes (parentElm, before, vnodes, startIdx, endIdx) {
     }
 }
 
-/*
- * 打补丁算法
- * 打补丁过程中修正EL，其实是把diff和render合并在一起
- */
+
 function patchVnode (oldVnode, vnode) {
     // 既然是打补丁，那么el是相同的
     const el = vnode.el = oldVnode.el
@@ -133,7 +130,10 @@ function updateChildren (parentElm, oldCh, newCh) {
     }
 }
 
-// 打补丁函数
+/*
+ * 打补丁算法
+ * 打补丁过程中修正EL，其实是把diff和render合并在一起
+ */
 export function patch (oldVnode, vnode) {
     // 值得比较
     if(sameVnode(oldVnode, vnode)) {

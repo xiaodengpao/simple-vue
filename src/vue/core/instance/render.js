@@ -7,6 +7,8 @@ export function initRender (vm) {
     // 返回vnode
     vm._vnode = vm.$options.render.call(vm, CV)
 }
+// $vnode: 有EL的vnode
+// _vnode: 没有EL的vnode
 export function renderMixin (Vue) {
     Vue.prototype.$mount = function(parent) {
         const vnode = this._vnode
@@ -15,8 +17,10 @@ export function renderMixin (Vue) {
         api.appendChild(parent, this.$vnode.el)
     }
     Vue.prototype.$render = function() {
-        this._vnode = vm.$options.render.call(vm, CV)
-        patch(this.$vnode, createEle(this._vnode))
-        this.$vnode = createEle(this._vnode)
+        const _newVnode = vm.$options.render.call(vm, CV)
+        const $newVnode = createEle(_newVnode)
+        patch(this.$vnode, $newVnode)
+        this.$vnode = $newVnode
+        this._vnode = _newVnode
     }
 }
