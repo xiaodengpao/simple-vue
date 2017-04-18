@@ -26,6 +26,4 @@ export function Vnode () {
     this.text = null
 
     this.attr = []
-
-    this.store = null
 }

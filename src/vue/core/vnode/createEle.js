@@ -1,18 +1,20 @@
 import { api, isObject, isString } from '../util/index'
 
+// 给Vnode创建el对象
 export function createEle (vnode) {
-    let i, e
-    if(!vnode.el && (i = vnode.text)) {
-        e = vnode.el = api.createTextNode(i)
+    // 创建根root
+    let property, el
+    if(!vnode.el && (property = vnode.text)) {
+        el = vnode.el = api.createTextNode(property)
         return vnode
     }
-    if((i = vnode.tagName) && vnode.el === null) {
-        e = vnode.el = api.createElement(i)
+    if((property = vnode.tagName) && vnode.el === null) {
+        el = vnode.el = api.createElement(property)
     }else if (vnode.el.nodeType === 1) {
-        e = vnode.el
+        el = vnode.el
     }
-    // 循环递归
-    updateEle(e, vnode)
+    // 循环递归，创建子节点DOM，并建立真实DOM关系
+    updateEle(el, vnode)
     return vnode
 }
 

@@ -41,12 +41,12 @@ api.defineProperty = function (obj, prop, descriptor) {
 api.appendChildren = function (ele, children) {
     if(ele && isArray(children)) {
         for(let i = 0; i < children.length; i++) {
-            let c
+            let childEl
             if (children[i] instanceof Vnode) {
                 // 创建子节点真实dom
-                c = children[i].el || createEle(children[i]).el
+                childEl = children[i].el || createEle(children[i]).el
             }
-            this.appendChild(ele, c)
+            this.appendChild(ele, childEl)
         }
     }
 }

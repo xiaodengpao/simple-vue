@@ -32,7 +32,7 @@ server.listen(config.port, (err)=>{
         console.log(err)
         return
     }
-    const url = `http://${config.host}:${config.port}/index.html`
+    const url = `http://${config.host}:${config.port}`
     console.log('\x1B[36m%s\x1B[0m', url)
     if (process.env.NODE_ENV === 'development') {
         opn(url)

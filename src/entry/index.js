@@ -6,6 +6,9 @@ window.vm = new Vue({
     },
     el: document.body,
     render: function(CV) {
-        return CV('Input', {'value': this.a}, [])
+        return CV('div', {'style': 'background: red;'}, [
+            CV('Input', {'value': this.a}, []),
+            'hahhahahaa'
+        ])
     }
 })

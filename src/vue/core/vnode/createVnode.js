@@ -1,6 +1,7 @@
 import { isString, isObject, isArray, toArray, error, isNumber, api } from '../util/index'
 import { Vnode, createEle } from './index'
 
+// 对标签进行处理
 function parseQuery (vnode, query) {
     let k, state = 0, j = 0
     vnode.sel = query
@@ -20,33 +21,39 @@ function parseQuery (vnode, query) {
     }
 }
 
-function parseData (vnode, v) {
-    for(let k in v) {
-        if(k === 'class') {
-            let i = v[k].split(' ')
+// 对data进行分类分流
+function parseData (vnode, data) {
+    for(let key in data) {
+        if(key === 'class') {
+            let i = data[key].split(' ')
             for(let j = 0; j < i.length; j++) {
                 vnode.className.push(i[j])
             }
-        }else if(k === 'key') {
-            vnode.key = v[k]
-        }else if(k !== 'style') {
-            vnode.attr.push(k)
+        }else if(key === 'key') {
+            vnode.key = data[key]
+        }else if(key !== 'style') {
+            vnode.attr.push(key)
         }
     }
-    vnode.data = v
+    // 原始数据
+    vnode.data = data
 }
 
-function parseChindren (vnode, v) {
-    let a = []
-    if (isString(v) || isNumber(v)) v = [v]
-    for (let i = 0; i < v.length; i++) {
-        if (!(v[i] instanceof Vnode)) {
-            a.push(createVnodeTxt(v[i]))
+// 处理子节点
+// text是子节点的一种，字符串默认为textNode
+// eg: ['hahhaa']
+function parseChindren (vnode, origChren) {
+    let children = []
+    if (isString(origChren) || isNumber(origChren)) origChren = [origChren]
+    for (let i = 0; i < origChren.length; i++) {
+        if (!(origChren[i] instanceof Vnode)) {
+            // 如果是字符串，创建textVnode
+            children.push(createVnodeTxt(origChren[i]))
         }else {
-            a.push(v[i])
+            children.push(origChren[i])
         }
     }
-    vnode.children = a
+    vnode.children = children
 }
 
 export function createVnodeTxt (str) {
@@ -58,20 +65,21 @@ export function createVnodeTxt (str) {
 }
 
 // 根据render函数创建虚拟dom
-export function createVnode (arg) {
+// args参数： 1、tag 2、data 3、children
+export function createVnode (args) {
     let i = 0, vd = new Vnode()
-    while(i < arg.length) {
-        let v = arg[i]
-        if(i === 0 && isString(v)) {
+    while(i < args.length) {
+        let arg = args[i]
+        if(i === 0 && isString(arg)) {
             // tag
-            parseQuery(vd, v)
+            parseQuery(vd, arg)
         }else if(i != 0) {
-            if(isObject(v)) {
+            if(isObject(arg)) {
                 // id、style、ect
-                parseData(vd, v)
-            }else if (isArray(v) || isString(v) || isNumber(v)) {
+                parseData(vd, arg)
+            }else if (isArray(arg) || isString(arg) || isNumber(arg)) {
                 // 子节点
-                parseChindren(vd, v)
+                parseChindren(vd, arg)
             }
         }
         i++
