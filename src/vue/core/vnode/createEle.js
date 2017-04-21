@@ -20,15 +20,15 @@ export function createEle (vnode) {
 
 // 更新当前节点
 export function updateEle (e, vnode, oldVnode) {
-    let i
+    let property
     // 设置属性
-    if((i = vnode.className).length > 0) api.setClass(e, i)
-    if((i = vnode.data) !== null) api.setAttrs(e, i)
-    if((i = vnode.id) !== null) api.setId(e, i)
+    if((property = vnode.className).length > 0) api.setClass(e, property)
+    if((property = vnode.data) !== null) api.setAttrs(e, property)
+    if((property = vnode.id) !== null) api.setId(e, property)
     // 存在子节点 && oldVnode为空
-    if((i = vnode.children) !== null && !oldVnode) {
+    if((property = vnode.children) !== null && !oldVnode) {
         // e -> parentElement
-        // i -> childVnode
-        api.appendChildren(e, i)
+        // property -> childVnode
+        api.appendChildren(e, property)
     }
 }

@@ -75,7 +75,7 @@ export function createVnode (args) {
             parseQuery(vd, arg)
         }else if(i != 0) {
             if(isObject(arg)) {
-                // id、style、ect
+                // style、ect
                 parseData(vd, arg)
             }else if (isArray(arg) || isString(arg) || isNumber(arg)) {
                 // 子节点

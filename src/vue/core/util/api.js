@@ -16,6 +16,7 @@ api.parentNode = function (node) {
     return node.parentNode
 }
 // newNode插入到parent下面，rf前
+// rf===null 查、插到末尾
 api.insertBefore = function (parent, newNode, rf) {
     return parent.insertBefore(newNode, rf)
 }

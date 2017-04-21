@@ -12,7 +12,6 @@ const server = new WebpackDevServer(compiler, {
         chunks: false,
         colors: true
     },
-    // 这里不能有inline，暂不清楚原因
     hot: true
 })
 

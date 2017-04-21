@@ -17,10 +17,8 @@ export function renderMixin (Vue) {
         api.appendChild(parent, this.$vnode.el)
     }
     Vue.prototype.$render = function() {
-        const _newVnode = vm.$options.render.call(vm, CV)
-        const $newVnode = createEle(_newVnode)
+        const $newVnode = vm.$options.render.call(vm, CV)
         patch(this.$vnode, $newVnode)
         this.$vnode = $newVnode
-        this._vnode = _newVnode
     }
 }
